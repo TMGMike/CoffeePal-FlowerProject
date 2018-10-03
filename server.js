@@ -12,4 +12,5 @@ app.use(summary);
 app.use(express.static(publicDir));
 
 app.listen(port);
+console.log("Running server...");
 module.exports = app;
