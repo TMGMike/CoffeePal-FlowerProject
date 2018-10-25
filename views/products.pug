@@ -1,0 +1,11 @@
+html
+    head
+        title Products - CoffeePal
+    body
+        h3 Our Products
+        ul
+            if product !== undefined
+                li= product.name + (product.id)
+            else
+                for product in products
+                    li= product.name

@@ -1,0 +1,13 @@
+html
+    head
+        title CoffeePal Summary
+    body
+        h1 CoffeePal Summary
+        p Hello, #{user}! These are the currently active coupons for CoffeePal:
+        ul
+            for coupon in coupons
+                if store !== undefined && store !== ""
+                    if store === String(coupon.valid_store)
+                        li= coupon.issue_id
+                else
+                    li= coupon.issue_id
