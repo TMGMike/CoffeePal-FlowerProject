@@ -4,8 +4,8 @@ var morgan = require("morgan");
 var request = require("request");
 
 app.use(morgan("combined"));
-app.set('views', `${__dirname}\\..\\..\\views`);
-
+app.set('views', `${__dirname}/../../views`);
+// "/var/app/current/api/summary\..\..\views"
 app.set('view engine', 'pug');
 
 var getCoupons = function(callback){
