@@ -5,8 +5,8 @@ var app = express(),
 path = require('path'),
 publicDir = path.join(__dirname,'/public');
 
-var swaggerUi = require('swagger-ui-express'),
-    swaggerDocumentation = require('./swagger.json');
+//var swaggerUi = require('swagger-ui-express'),
+ //   swaggerDocumentation = require('./swagger.json');
 var coupons = require('./api/coupons');
 var summary = require('./api/summary');
 var orders = require('./api/orders');
@@ -16,7 +16,7 @@ app.use(products);
 app.use(coupons);
 app.use(summary);
 app.use(orders);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocumentation));
+//app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocumentation));
 app.use(express.static(publicDir));
 app.set('views', `${__dirname}/views`);
 
