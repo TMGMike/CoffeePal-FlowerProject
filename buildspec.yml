@@ -7,7 +7,9 @@ phases:
       - npm install
 
         # Prevent files from having a timestamp before 1980
-      - find ./node_modules -mtime +10950 -exec touch {} \;
+      -ls $CODEBUILD_SRC_DIR
+
+      -find $CODEBUILD_SRC_DIR/node_modules -mtime +10950 -exec touch {} ;
 
         # Upgrade AWS CLI to the latest version
       - pip install --upgrade awscli
