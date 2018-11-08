@@ -7,6 +7,7 @@ publicDir = path.join(__dirname,'/public');
 
 //var swaggerUi = require('swagger-ui-express'),
  //   swaggerDocumentation = require('./swagger.json');
+
 var coupons = require('./api/coupons');
 var summary = require('./api/summary');
 var orders = require('./api/orders');
