@@ -2,7 +2,7 @@ var express = require("express");
 var app = module.exports = express();
 
 app.get("/api/orders", function(req, res) {
-    // Get an all existent orders
+    // Get all existing orders
     res.send("Test");
 });
 
@@ -11,6 +11,11 @@ app.get("/api/orders/{orderid}", function(req, res){
 });
 
 app.post("/api/orders", function(req, res) {
-    // Create a new order
+    res.status(201).json(
+        {
+            "status": 201,
+            "message": "Created Order."
+        }
+    );
 });
 

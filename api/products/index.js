@@ -1,8 +1,9 @@
 var express = require("express");
 var app = module.exports = express();
-app.set('views', `${__dirname}\\..\\..\\views`);
+app.set('views', `${__dirname}/../../views`);
 
 app.set('view engine', 'pug');
+
 var products = {
     "products": [
     {
@@ -27,11 +28,19 @@ var products = {
     }
 ]
 };
-app.get("/api/products", function(req, res) {
+
+app.get("/api/products", function (req,res) {
+    res.status(200).json(products);
+});
+
+app.get("/products", function(req, res) {
     // Get an all existent orders
     res.render("products", products);
 });
 
+/**
+ * Get a specific product by ID.
+ */
 app.get("/api/products/:productid", function(req, res){
     // Get a specific order by id
   //  res.send("Test with product id: " + req.param("productid"));

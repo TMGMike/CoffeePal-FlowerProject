@@ -1,8 +1,19 @@
 html
     head
         title Products - CoffeePal
+        link(rel="stylesheet", type="text")
+        link(rel="stylesheet" href="/css/header.css" type="text/css")
+        link(rel="stylesheet" href="/css/icon-pop.css" type="text/css")
+        link(rel="stylesheet" href="/css/overline-centre.css" type="text/css")
     body
-        h3 Our Products
+        .header
+            a.headeritem.hvr-overline-from-center(href="/") Home
+            a.headeritem.hvr-overline-from-center.headeritem(href="/products") Products
+            a.headeritem(href=url) <img class="hvr-pop" src="https://www.bnrconvention.com/wp-content/uploads/2017/04/coffee-icon-1.png" width="34px" height="34px">
+            a.headeritem.hvr-overline-from-center.headeritem(href="/summary") Summary
+            a.headeritem.hvr-overline-from-center.headeritem(href="/about") About
+        br
+        h1.title Our Products
         ul
             if product !== undefined
                 li= product.name + (product.id)

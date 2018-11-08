@@ -1,9 +1,21 @@
+-var url = "http://coffeepal-floweapp.m9ncewxn3n.eu-west-2.elasticbeanstalk.com"
 html
     head
         title About Us - CoffeePal
+        link(rel="stylesheet" href="/css/header.css" type="text/css")
+        link(rel="stylesheet" href="/css/about.css" type="text/css")
+        link(rel="stylesheet" href="/css/icon-pop.css" type="text/css")
+        link(rel="stylesheet" href="/css/overline-centre.css" type="text/css")
     body
-        h3 About Us
-        p.
-            We make coffee. <br>
-            And also tea. <br>
-            But mostly coffee. <br>
+        .header
+            a.headeritem.hvr-overline-from-center(href="/") Home
+            a.headeritem.hvr-overline-from-center.headeritem(href="/products") Products
+            a.headeritem(href=url) <img class="hvr-pop" src="https://www.bnrconvention.com/wp-content/uploads/2017/04/coffee-icon-1.png" width="34px" height="34px">
+            a.headeritem.hvr-overline-from-center.headeritem(href="/summary") Summary
+            a.headeritem.hvr-overline-from-center.headeritem(href="/about") About
+        br
+        h3.title About Us
+        p.description.
+            Simply put, we make coffee. We specialise in the best hot drinks, for the lowest prices, and the highest
+            convenience. <br>
+            We're a small chain of coffee shops, located in the Huddersfield town centre.

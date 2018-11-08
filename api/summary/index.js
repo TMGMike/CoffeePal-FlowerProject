@@ -4,7 +4,7 @@ var morgan = require("morgan");
 var request = require("request");
 
 app.use(morgan("combined"));
-app.set('views', `${__dirname}\\..\\..\\views`);
+app.set('views', `${__dirname}/../../views`);
 
 app.set('view engine', 'pug');
 
@@ -21,7 +21,7 @@ var getCoupons = function(callback){
       var bodyJson = JSON.parse(body);
       var coupons = bodyJson.coupons;
       return callback(coupons);
-  })
+  });
 };
 
 var hasQuery = function(toCheck, callback) {
