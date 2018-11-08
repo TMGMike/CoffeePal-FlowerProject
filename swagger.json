@@ -1,0 +1,173 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "CoffeePal EPoS System",
+    "description": "This is the back-end API for the CoffeePal stores.",
+    "termsOfService": "terms",
+    "contact": {
+      "name": "Mike - Back-end Engineer",
+      "email": "u1764905@unimail.hud.ac.uk"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "coffeepal-floweapp.m9ncewxn3n.eu-west-2.elasticbeanstalk.com",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/coupons": {
+      "get": {
+        "summary": "Gets a list of coupons",
+        "description": "Get a list of coupon codes that are currently active, for every store. Different coupons have different values and requirements, which are outlined below. <br> \n\n # discount\n A Discount will provide a percentage off.\n <br>*```coupon_value```* - The percentage to subtract from the total.\n <br>**Requirements:**\n \n *```minimum_spend```* - The cart must total a certain amount before the coupon is applied. (*In GBP*)\n \n *```required_products[]```* - The product to apply the discount to. It must be in the cart for the coupon to be applied.\n\n # free_product\n This will provide the customer with a free drink or snack.\n \n <br>*```coupon_value```* - A string value which represents the free product that they will receive.\n <br>**Requirements:**\n \n *```minimum_spend```* - The cart must total a certain amount before the coupon is applied. (*In GBP*)\n \n *```required_products[]```* - The cart must contain these products before they're eligible for the free drink. This can be empty if there are no product requirements.\n \n \n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "Coupons": {
+                "coupons": [
+                  {
+                    "expires_in": 172800,
+                    "coupon_code": "coffee20",
+                    "valid_store": 5045,
+                    "data": {
+                      "coupon_type": "discount",
+                      "coupon_value": 20,
+                      "required_products": [],
+                      "minimum_spend": 30
+                    }
+                  },
+                  {
+                    "expires_in": 202800,
+                    "coupon_code": "xmas18",
+                    "valid_store": 3150,
+                    "data": {
+                      "coupon_type": "free_product",
+                      "coupon_value": "p0001",
+                      "required_products": [
+                        "p0003",
+                        "p0006"
+                      ],
+                      "minimum_spend": 0
+                    }
+                  },
+                  {
+                    "expires_in": 3000,
+                    "coupon_code": "october18",
+                    "valid_store": 5045,
+                    "data": {
+                      "coupon_type": "discount",
+                      "coupon_value": 30,
+                      "required_products": [
+                        "p0005"
+                      ],
+                      "minimum_spend": 25
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "401": {
+            "description": "The current account does not have enough clearance for this resource."
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "summary": "Gets a list of orders",
+        "description": "Get a list of all of the current orders.",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Sort by whether the order is open, fulfilled, cancelled, or all.",
+            "required": true,
+            "type": "string",
+            "items": {
+              "type": "string",
+              "enum": [
+                "open",
+                "completed",
+                "cancelled",
+                "all"
+              ],
+              "default": "open"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "The current account does not have enough clearance for this resource."
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "Gets a list of products",
+        "description": "Get a list of all of the current products sold in-store.",
+        "parameters": [
+          {
+            "name": "store",
+            "in": "query",
+            "description": "Specifies which store to show the products for.",
+            "required": true,
+            "type": "string",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Specifies which category it should show the products for.",
+            "required": false,
+            "type": "string",
+            "items": {
+              "type": "string",
+              "enum": [
+                "coffee",
+                "tea",
+                "snacks",
+                "all"
+              ],
+              "default": "all"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "Products": [
+                {
+                  "id": "p0001",
+                  "name": "Mocha"
+                },
+                {
+                  "id": "p0002",
+                  "name": "Latte"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "A parameter was unrecognised"
+          },
+          "401": {
+            "description": "The current account does not have enough clearance for this resource."
+          }
+        }
+      }
+    }
+  }
+}
