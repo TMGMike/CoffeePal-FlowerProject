@@ -86,7 +86,7 @@
           {
             "name": "status",
             "in": "query",
-            "description": "Sort by whether the order is open, fulfilled, cancelled, or all.",
+            "description": "Sort by whether the order is open, fulfilled, cancelled, or all. *Default: **open***",
             "required": true,
             "type": "string",
             "items": {
@@ -151,11 +151,21 @@
               "Products": [
                 {
                   "id": "p0001",
-                  "name": "Mocha"
+                  "name": "Mocha",
+                  "prices": {
+                    "small" : 2.30,
+                    "medium": 2.60,
+                    "large" : 3.20
+                  }
                 },
                 {
                   "id": "p0002",
-                  "name": "Latte"
+                  "name": "Latte",
+                  "prices": {
+                    "small" : 2.30,
+                    "medium": 2.60,
+                    "large" : 3.20
+                  }
                 }
               ]
             }

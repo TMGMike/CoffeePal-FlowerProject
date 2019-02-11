@@ -1,9 +1,6 @@
 
 var express = require("express");
-var app = module.exports = express();
-// var morgan = require("morgan");
-//
-// app.use(morgan("combined"));
+var app     = module.exports = express();
 
 var coupons = {
     "coupons": [

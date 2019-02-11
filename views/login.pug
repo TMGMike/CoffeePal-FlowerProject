@@ -1,0 +1,27 @@
+head
+    title Login - CoffeePal EPoS System
+    link( href="/css/login.css" type="text/css" rel="stylesheet")
+    link( href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet")
+    link(rel="stylesheet" href="/css/overline-centre.css" type="text/css")
+body
+    h3 CoffeePal
+
+    .loginarea
+        p.logindesc Welcome back to CoffeePal. Login Below
+        if loginError === true
+            <p class="logindesc" style="color: #bd1c00;">Your login details could not be verified. Please try again</p>
+        form(method="POST" action="/login")
+            div.formgroup
+                label(for='email') Email
+                br
+                input.formcontrol(type="text" id="email" name="email" value=loginEmail)
+            div.formgroup
+                label(for="password") Password
+                br
+                input.formcontrol(type="password" id="password" name="password")
+            input.formcheckbox(type="checkbox" name="remember" value="remember")
+            | Remember Me
+            br
+            button.formbutton.hvr-overline-from-center-white(type="submit") Login
+        if loginError === true
+            script document.getElementById("email").value = #{loginEmail};

@@ -1,0 +1,52 @@
+head
+    title Sign Up - CoffeePal EPoS System
+    link( href="/css/login.css" type="text/css" rel="stylesheet")
+    link( href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet")
+    link(rel="stylesheet" href="/css/overline-centre.css" type="text/css")
+body
+    h3 CoffeePal
+
+    .loginarea
+        p.logindesc Welcome to CoffeePal! Sign Up Below.
+        if loginError === true
+            <p class="logindesc" id="loginerr" style="color: #bd1c00;"></p>
+        form(method="POST" action="/signup")
+            div.formgroup
+                label(for='email') Email
+                br
+                input.formcontrol(type="text" id="email" name="email" value=loginEmail)
+            div.formgroup
+                label(for="password") Password
+                br
+                input.formcontrol(type="password" id="password" name="password")
+            div.formgroup
+                label(for="confirmPassword") Confirm Password
+                br
+                input.formcontrol(type="password" id="confirmPassword" name="password")
+            div.formgroup
+                label Date of Birth
+                br
+                br
+                label.doblabel(for="day") Day (DD)
+                label.doblabel(for="month") Month (MM)
+                label.doblabel(for="year") Year (YYYY)
+                br
+                input.formcontrol-dob(type="text" id="day" name="day")
+                input.formcontrol-dob(type="text" id="month" name="month")
+                input.formcontrol-dob(type="text" id="year" name="year")
+            div.formgroup
+                label(for="name") Your Name
+                br
+                input.formcontrol(type="text" id="name" name="name")
+            div.formgroup
+                label(for="phone_number") Phone Number
+                br
+                input.formcontrol(type="text" id="phone_number" name="phone_number")
+            br
+            button.formbutton.hvr-overline-from-center-white(type="submit" onclick="submit_pressed") Create Account
+
+        if loginError === true
+            script.
+                document.getElementById("email").value = "#{loginEmail}";
+                document.getElementById("loginerr").innerHTML = "#{loginMessage}";
+                console.log("Error encountered: #{rawError}");

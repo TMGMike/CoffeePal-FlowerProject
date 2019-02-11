@@ -25,11 +25,8 @@ var getCoupons = function(callback){
 };
 
 var hasQuery = function(toCheck, callback) {
-    if(toCheck === undefined || toCheck === ""){
-        return callback(false);
-    }else {
-        return callback(true);
-    }
+    // If toCheck is null, there is no query and false should be returned.
+    return callback((toCheck !== undefined || toCheck !== ""));
 };
 
 app.get("/summary", function(req, res){

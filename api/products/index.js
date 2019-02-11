@@ -1,5 +1,5 @@
 var express = require("express");
-var app = module.exports = express();
+var app     = module.exports = express();
 app.set('views', `${__dirname}/../../views`);
 
 app.set('view engine', 'pug');
@@ -8,28 +8,53 @@ var products = {
     "products": [
     {
         "id": "p0001",
-        "name": "a type of coffee"
+        "name": "a type of coffee",
+        prices: {
+            "small" : 2.30,
+            "medium": 2.60,
+            "large" : 3.20
+        }
     },
     {
         "id": "p0002",
-        "name": "another type of coffee"
+        "name": "another type of coffee",
+        prices: {
+            "small" : 2.50,
+            "medium": 2.80,
+            "large" : 3.30
+        }
     },
     {
         "id": "p0003",
-        "name": "another other type of coffee"
+        "name": "another other type of coffee",
+        prices: {
+            "small" : 2.30,
+            "medium": 2.60,
+            "large" : 3.20
+        }
     },
     {
         "id": "p0004",
-        "name": "A terrible coffee"
+        "name": "A terrible coffee",
+        prices: {
+            "small" : 2.30,
+            "medium": 2.60,
+            "large" : 3.20
+        }
     },
     {
         "id": "p0005",
-        "name": "Tea"
+        "name": "Tea",
+        prices: {
+            "small" : 2.10,
+            "medium": 2.50,
+            "large" : 3.00
+        }
     }
 ]
 };
 
-app.get("/api/products", function (req,res) {
+app.get("/api/products", function (req, res) {
     res.status(200).json(products);
 });
 

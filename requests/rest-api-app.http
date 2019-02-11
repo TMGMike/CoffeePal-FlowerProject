@@ -16,3 +16,10 @@ Content-Type: application/json
 GET {{host}}/docs
 Content-Type: text/html
 ###
+GET {{host}}/login
+Content-Type: text/html
+###
+POST {{host}}/login
+Content-Type: application/json
+
+###
