@@ -3,7 +3,7 @@ var app     = module.exports = express();
 app.set('views', `${__dirname}/../../views`);
 // require('node-fetch');
 var AmazonCognitoIdentity = require("amazon-cognito-identity-js");
-var cred = require(`${__dirname}/../../awsdetails`);
+// var cred = require(`${__dirname}/../../awsdetails`);
 var bodyParser = require("body-parser");
 app.set('view engine', 'pug');
 
@@ -25,8 +25,8 @@ app.get('/login', function(req, res) {
 });
 
 var pool = {
-  UserPoolId :  cred.PoolID,
-  ClientId   :  cred.AppClient
+  UserPoolId :  process.env.PoolID,
+  ClientId   :  process.env.AppClient
 };
 
 app.post('/login', function(req,res) {
