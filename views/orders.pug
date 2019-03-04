@@ -1,0 +1,40 @@
+head
+    title Orders - CoffeePal EPoS System
+    link( href="/css/login.css" type="text/css" rel="stylesheet")
+    script(src="/js/orders.js")
+body(onload="ordersOnLoad()")
+    if created === "error"
+        h4.title(style="color: red") ⚠️Failed to create new order
+    h3.title Add New Order
+    form(action='/api/orders' method="POST" style="margin-left: 30%")
+        select(id="select-orders" name="product")
+        select(id="select-size" name="size" style="margin-right: 12px;")
+            option(value="small") Small
+            option(value="medium") Regular
+            option(value="large") Large
+        input(type="checkbox" name="paid" style="color: #BFBFBF;")
+        | Paid?
+        input(type="text" name="customername" placeholder="Customer Name" style="margin-left: 12px;")
+        input(type="text" name="comments" placeholder="Additional Comments")
+        input(type="submit" value="Submit")
+    h3.title Existing Orders
+    div.loginarea(id="order-area")
+        br
+        table(id="order-table" style="color: #BFBFBF")
+            tr
+                th(style="width: 17%;") Order ID
+                th(style="width: 17%;") Order Status
+                th(style="width: 13%;") Placed at
+                th(style="width: 17%;") Created by
+                th(style="width: 25%;") Products
+            for order in orders
+                tr
+                td #{order.order_id}
+                td #{order.status}
+                td #{conv_date(order.date)}
+                td #{order.staff_id}
+                td(style="width: 300px")
+                  - for (var i = 0; i < order.products.length; i++) {
+                        ul
+                            li(id="prod-" + order.products[i].product_id)   - For: #{order.products[i].customer_name} <br>
+                  - }

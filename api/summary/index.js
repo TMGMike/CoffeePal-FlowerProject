@@ -10,7 +10,7 @@ app.set('view engine', 'pug');
 
 var getCoupons = function(callback){
     var options = {
-        url: "http://coffeepal-floweapp.m9ncewxn3n.eu-west-2.elasticbeanstalk.com/api/coupons",
+        url: "http://coffeepal.themadgamers.co.uk/api/coupons",
         method: "GET"
     };
   request(options, function (error, response, body) {

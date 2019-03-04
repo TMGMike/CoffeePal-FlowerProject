@@ -14,7 +14,7 @@
       "url": "http://opensource.org/licenses/MIT"
     }
   },
-  "host": "coffeepal-floweapp.m9ncewxn3n.eu-west-2.elasticbeanstalk.com",
+  "host": "http://coffeepal.themadgamers.co.uk",
   "basePath": "/api",
   "schemes": [
     "http"
@@ -103,7 +103,20 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK - JSON object containing the filtered orders.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "The status of the current order."
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "The current account does not have enough clearance for this resource."

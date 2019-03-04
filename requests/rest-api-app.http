@@ -10,7 +10,13 @@ GET {{host}}
 ###
 GET {{host}}/api/coupons
 ###
-POST {{host}}/api/orders
+GET {{host}}/api/products/p0001
+Content-Type: application/json
+###
+GET {{host}}/api/products
+Content-Type: application/json
+###
+GET {{host}}/api/orders
 Content-Type: application/json
 ###
 GET {{host}}/docs

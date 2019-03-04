@@ -6,51 +6,96 @@ app.set('view engine', 'pug');
 
 var products = {
     "products": [
-    {
-        "id": "p0001",
-        "name": "a type of coffee",
-        prices: {
-            "small" : 2.30,
-            "medium": 2.60,
-            "large" : 3.20
-        }
-    },
-    {
-        "id": "p0002",
-        "name": "another type of coffee",
-        prices: {
-            "small" : 2.50,
-            "medium": 2.80,
-            "large" : 3.30
-        }
-    },
-    {
-        "id": "p0003",
-        "name": "another other type of coffee",
-        prices: {
-            "small" : 2.30,
-            "medium": 2.60,
-            "large" : 3.20
-        }
-    },
-    {
-        "id": "p0004",
-        "name": "A terrible coffee",
-        prices: {
-            "small" : 2.30,
-            "medium": 2.60,
-            "large" : 3.20
-        }
-    },
-    {
-        "id": "p0005",
-        "name": "Tea",
-        prices: {
-            "small" : 2.10,
-            "medium": 2.50,
-            "large" : 3.00
-        }
-    }
+        {
+            "id": "p0001",
+            "name": "Flat White",
+            prices: {
+                "small" : 2.30,
+                "medium": 2.60,
+                "large" : 3.20
+            }
+        },
+        {
+            "id": "p0002",
+            "name": "Americano",
+            prices: {
+                "small" : 2.50,
+                "medium": 2.80,
+                "large" : 3.30
+            }
+        },
+        {
+            "id": "p0003",
+            "name": "Mocha",
+            prices: {
+                "small" : 2.30,
+                "medium": 2.60,
+                "large" : 3.20
+            }
+        },
+        {
+            "id": "p0004",
+            "name": "Latte",
+            prices: {
+                "small" : 2.30,
+                "medium": 2.60,
+                "large" : 3.20
+            }
+        },
+        {
+            "id": "p0005",
+            "name": "English Breakfast Tea",
+            prices: {
+                "small" : 2.10,
+                "medium": 2.50,
+                "large" : 3.00
+            }
+        },
+        {
+            "id": "p0006",
+            "name": "Espresso",
+            prices: {
+                "small" : 2.30,
+                "medium": 2.60,
+                "large" : 3.20
+            }
+        },
+        {
+            "id": "p0007",
+            "name": "Latte Macchiato",
+            prices: {
+                "small" : 2.30,
+                "medium": 2.60,
+                "large" : 3.20
+            }
+        },
+        {
+            "id": "p0008",
+            "name": "Caramel Macchiato",
+            prices: {
+                "small" : 2.30,
+                "medium": 2.60,
+                "large" : 3.20
+            }
+        },
+        {
+            "id": "p0009",
+            "name": "Hot Chocolate",
+            prices: {
+                "small" : 2.50,
+                "medium": 2.80,
+                "large" : 3.00
+            }
+        },
+        {
+            "id": "p0010",
+            "name": "Caramel Hot Chocolate",
+            prices: {
+                "small" : 2.65,
+                "medium": 2.90,
+                "large" : 3.10
+            }
+        },
 ]
 };
 
@@ -69,11 +114,17 @@ app.get("/products", function(req, res) {
 app.get("/api/products/:productid", function(req, res){
     // Get a specific order by id
   //  res.send("Test with product id: " + req.param("productid"));
-    var product = {
-        "product": {
-            "id": req.param("productid"),
-            "name": "test"
+    var selectedProduct = null;
+
+    for (var i = 0; i < products.products.length; i++){
+        if(products.products[i].id === req.params['productid']){
+            selectedProduct = products.products[i];
+            break;
         }
-    };
-    res.render("products", product);
+    }
+    (selectedProduct !== null) ? res.status(200).json({"status_code": 200, "data": products.products[i]}) :
+        res.status(404).json({"status_code": 404, "message": `Could not find product '${req.params['productid']}'`});
+
+
+    // res.render("products", product);
 });

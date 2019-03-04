@@ -4,6 +4,8 @@ var app       = express(),
 path          = require('path'),
 publicDir     = path.join(__dirname,'/public');
 
+var bodyParser = require('body-parser');
+
 var swaggerUi = require('swagger-ui-express'),
     swaggerDocumentation = require('./swagger.json');
 
@@ -20,7 +22,19 @@ app.use(summary);
 app.use(orders);
 app.use(login);
 app.use(signup);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocumentation));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+var swaggerOptions = {
+    customCss: '.logo__img {\n' +
+        '    background: url(\'http://coffeepal.themadgamers.co.uk/img/CoffeePal.png\') no-repeat;\n' +
+        '} \n .swagger-ui .topbar {\n' +
+        '    background-color: #b35900;\n' +
+        '}\n'
+};
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocumentation, swaggerOptions));
 app.use(express.static(publicDir));
 
 app.set('views', `${__dirname}/views`);
