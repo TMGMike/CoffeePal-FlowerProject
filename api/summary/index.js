@@ -2,6 +2,9 @@ var express = require("express");
 var app = module.exports = express();
 var morgan = require("morgan");
 var request = require("request");
+var token = require(`${__dirname}/../../CheckToken`);
+var cred = require(`${__dirname}/../../awsdetails`);
+var mysql = require('mysql');
 
 app.use(morgan("combined"));
 app.set('views', `${__dirname}/../../views`);
@@ -30,6 +33,14 @@ var hasQuery = function(toCheck, callback) {
 };
 
 app.get("/summary", function(req, res){
+
+    token.checkToken("test", function(result){
+        console.log("Token data: ");
+        console.log(result);
+        if(result !== null) {
+
+        }
+    });
     // Return ?user= value from URL, or "Guest" if not provided.
     getCoupons(function (couponsCall) {
         res.render("summary",

@@ -1,24 +1,42 @@
 head
     title Orders - CoffeePal EPoS System
     link( href="/css/login.css" type="text/css" rel="stylesheet")
+    link(rel="stylesheet" href="/css/header.css" type="text/css")
+    link(rel="stylesheet" href="/css/icon-pop.css" type="text/css")
+    link(rel="stylesheet" href="/css/overline-centre.css" type="text/css")
     script(src="/js/orders.js")
 body(onload="ordersOnLoad()")
+    .header
+        a.headeritem.hvr-overline-from-center(href="/") Home
+        a.headeritem.hvr-overline-from-center.headeritem(href="/products") Products
+        if role === "employee"
+            a.headeritem.hvr-overline-from-center.headeritem(href="/orders") Orders
+        a.headeritem(href=url) <img class="hvr-pop" src="/img/CoffeePal.png" width="34px" height="34px">
+        a.headeritem.hvr-overline-from-center.headeritem(href="/login") Login
+        a.headeritem.hvr-overline-from-center.headeritem(href="/signup") Register
+        if role === "manager"
+            a.headeritem.hvr-overline-from-center.headeritem(href="/summary") Summary
+        a.headeritem.hvr-overline-from-center.headeritem(href="/about") About
+    br
     if created === "error"
         h4.title(style="color: red") ⚠️Failed to create new order
     h3.title Add New Order
-    form(action='/api/orders' method="POST" style="margin-left: 30%")
-        select(id="select-orders" name="product")
-        select(id="select-size" name="size" style="margin-right: 12px;")
+    form(action='/api/orders' method="POST" style="margin-left: 30%" id="add-order-form")
+        | Add To:
+        select(id="select-order" name="add_to")
+            option(value="new") - New Order -
+        select(id="select-products" name="product")
+        select(id="select-size" name="size")
             option(value="small") Small
             option(value="medium") Regular
             option(value="large") Large
+        input(type="text" name="customername" placeholder="Customer Name" style="margin-right: 12px;")
         input(type="checkbox" name="paid" style="color: #BFBFBF;")
         | Paid?
-        input(type="text" name="customername" placeholder="Customer Name" style="margin-left: 12px;")
-        input(type="text" name="comments" placeholder="Additional Comments")
+        input(type="text" name="comments" placeholder="Additional Comments" style="margin-left: 12px;")
         input(type="submit" value="Submit")
     h3.title Existing Orders
-    div.loginarea(id="order-area")
+    div.loginarea(id="order-area" style="width: 35%; margin-left: 33%;")
         br
         table(id="order-table" style="color: #BFBFBF")
             tr
@@ -27,6 +45,7 @@ body(onload="ordersOnLoad()")
                 th(style="width: 13%;") Placed at
                 th(style="width: 17%;") Created by
                 th(style="width: 25%;") Products
+                th(style="width: 20%;") Comments
             for order in orders
                 tr
                 td #{order.order_id}
@@ -38,3 +57,4 @@ body(onload="ordersOnLoad()")
                         ul
                             li(id="prod-" + order.products[i].product_id)   - For: #{order.products[i].customer_name} <br>
                   - }
+                td #{order.comments}

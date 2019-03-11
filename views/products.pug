@@ -1,22 +1,28 @@
 html
     head
-        title Products - CoffeePal
+        title Products - CoffeePal EPoS System
         link(rel="stylesheet", type="text")
         link(rel="stylesheet" href="/css/header.css" type="text/css")
+        link( href="/css/login.css" type="text/css" rel="stylesheet")
         link(rel="stylesheet" href="/css/icon-pop.css" type="text/css")
         link(rel="stylesheet" href="/css/overline-centre.css" type="text/css")
     body
         .header
             a.headeritem.hvr-overline-from-center(href="/") Home
             a.headeritem.hvr-overline-from-center.headeritem(href="/products") Products
+            if role === "employee"
+                a.headeritem.hvr-overline-from-center.headeritem(href="/orders") Orders
             a.headeritem(href=url) <img class="hvr-pop" src="/img/CoffeePal.png" width="34px" height="34px">
-            a.headeritem.hvr-overline-from-center.headeritem(href="/summary") Summary
+            a.headeritem.hvr-overline-from-center.headeritem(href="/login") Login
+            a.headeritem.hvr-overline-from-center.headeritem(href="/signup") Register
+            if role === "manager"
+                a.headeritem.hvr-overline-from-center.headeritem(href="/summary") Summary
             a.headeritem.hvr-overline-from-center.headeritem(href="/about") About
         br
         h1.title Our Products
-        ul
-            if product !== undefined
-                li= product.name + (product.id)
-            else
-                for product in products
-                    li= product.name
+        div
+            for product in products
+                div(style="float: left; width: 300px; margin-right: 3px; margin-left: 9px; padding-left: 40px")
+                    p(style="color: #ffff; text-align: center;") #{product.name}
+                    img(src="/img/products/" + product.id +  ".png" alt="default" width="300" height="300" onerror="this.src='/img/products/default.png'")
+

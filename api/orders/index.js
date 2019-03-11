@@ -7,7 +7,7 @@ app.use( bodyParser.json() );
 // for parsing application/xwww-
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var orders = [{order_id: "d0001", status: "open", "staff_id": "e0001", store_id: "5045", date: 1549554785, products: [{product_id: "p0001", customer_name: "John"}, {product_id: "p0002", customer_name: "Alice"}, {product_id: "p0003", customer_name: "Billy"}]}, {order_id: "d0002", status: "open", "staff_id": "e0002", store_id: "5045", date: 1549554796, products: [{product_id: "p0006", customer_name: "Tony"}]}, {order_id: "d0002", status: "fulfilled", "staff_id": "e0001", store_id: "5045", date: 1549554715, products: [{product_id: "p0003", customer_name: "Andy"}]}];
+var orders = [{order_id: "d0001", status: "open", "staff_id": "e0001", store_id: "5045", date: 1549554785, products: [{product_id: "p0001", customer_name: "John"}, {product_id: "p0002", customer_name: "Alice"}, {product_id: "p0003", customer_name: "Billy"}]}, {order_id: "d0002", status: "open", "staff_id": "e0002", store_id: "5045", date: 1549554796, products: [{product_id: "p0006", customer_name: "Tony"}]}, {order_id: "d0003", status: "fulfilled", "staff_id": "e0001", store_id: "5045", date: 1549554715, products: [{product_id: "p0003", customer_name: "Andy"}]}];
 
 app.get("/api/orders", function(req, res) {
     // Get all existing orders
@@ -54,26 +54,41 @@ app.get("/orders", function(req, res){
 
 });
 
-app.get("/api/orders/{orderid}", function(req, res){
-    // Get a specific order by id
+app.get("/api/orders/:orderid", function(req, res){
+    for (var i = 0; i < orders.length; i++) {
+        if(orders[i].order_id === req.params['orderid']) {
+            res.json({"status_code": 200, "order": orders[i]});
+        }
+    }
 });
 
 app.post("/api/orders", function(req, res) {
-    // console.log(req.body);
+    console.log(req.body);
+    if(req.body["add_to"] === "new") {
+        var order = {
+            "order_id": (orders.length < 10) ? "d000" + (orders.length + 1) : "d00" + (orders.length + 1),
+            "status": "open",
+            "paid": (req.body.paid === 'on'),
+            "staff_id": "",
+            "store_id": "",
+            "date": Math.floor(new Date() / 1000),
+            "products": [ ],
+            "comments": req.body.comments
+        };
 
-    var order = {
-        "order_id": "d0012",
-        "status": "open",
-        "paid": (req.body.paid === 'on'),
-        "staff_id": "",
-        "store_id": "",
-        "date": Math.floor(new Date() / 1000),
-        "products": [ ],
-        "comments": req.body.comments
-    };
+        order.products.push({product_id: req.body.product, customer_name: req.body.customername, size: req.body.size});
+        orders.push(order);
+    }
+    else {
+        for (var i = 0; i < orders.length; i++){
+            if(orders[i].order_id === req.body["add_to"]){
+                orders[i].products.push({product_id: req.body.product, customer_name: req.body.customername, size: req.body.size});
+                break;
+            }
 
-    order.products.push({product_id: req.body.product, customer_name: req.body.customername, size: req.body.size});
-    orders.push(order);
+        }
+    }
+
 
     console.log(order);
     res.redirect('/orders?created=success');

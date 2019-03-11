@@ -3,11 +3,30 @@ head
     link( href="/css/login.css" type="text/css" rel="stylesheet")
     link( href="https://fonts.googleapis.com/css?family=Sunflower:300" rel="stylesheet")
     link(rel="stylesheet" href="/css/overline-centre.css" type="text/css")
+    link(rel="stylesheet" href="/css/header.css" type="text/css")
+    link(rel="stylesheet" href="/css/icon-pop.css" type="text/css")
 body
+    .header
+        a.headeritem.hvr-overline-from-center(href="/") Home
+        a.headeritem.hvr-overline-from-center.headeritem(href="/products") Products
+        if role === "employee"
+            a.headeritem.hvr-overline-from-center.headeritem(href="/orders") Orders
+        a.headeritem(href=url) <img class="hvr-pop" src="/img/CoffeePal.png" width="34px" height="34px">
+        a.headeritem.hvr-overline-from-center.headeritem(href="/login") Login
+        a.headeritem.hvr-overline-from-center.headeritem(href="/signup") Register
+        if role === "manager"
+            a.headeritem.hvr-overline-from-center.headeritem(href="/summary") Summary
+        a.headeritem.hvr-overline-from-center.headeritem(href="/about") About
+    br
     h3 CoffeePal
 
     .loginarea
         p.logindesc Welcome to CoffeePal! Sign Up Below.
+        if session_token
+            script.
+                console.log("Setting token to: #{session_token}");
+                window.localStorage.setItem('session_token', "#{session_token}");
+                window.location.assign("/");
         if loginError === true
             <p class="logindesc" id="loginerr" style="color: #bd1c00;"></p>
         form(method="POST" action="/signup")

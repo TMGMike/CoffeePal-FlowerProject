@@ -1,20 +1,29 @@
 html
     head
-        title CoffeePal Summary
+        title Summary - CoffeePal EPoS System
         link(rel="stylesheet", type="text")
+        link( href="/css/login.css" type="text/css" rel="stylesheet")
         link(rel="stylesheet" href="/css/header.css" type="text/css")
         link(rel="stylesheet" href="/css/icon-pop.css" type="text/css")
         link(rel="stylesheet" href="/css/overline-centre.css" type="text/css")
-    body
+        script(src="/js/staff.js")
+    body(onload="setUsers()")
         .header
             a.headeritem.hvr-overline-from-center(href="/") Home
             a.headeritem.hvr-overline-from-center.headeritem(href="/products") Products
+            if role === "employee"
+                a.headeritem.hvr-overline-from-center.headeritem(href="/orders") Orders
             a.headeritem(href=url) <img class="hvr-pop" src="/img/CoffeePal.png" width="34px" height="34px">
-            a.headeritem.hvr-overline-from-center.headeritem(href="/summary") Summary
+            a.headeritem.hvr-overline-from-center.headeritem(href="/login") Login
+            a.headeritem.hvr-overline-from-center.headeritem(href="/signup") Register
+            if role === "manager"
+                a.headeritem.hvr-overline-from-center.headeritem(href="/summary") Summary
             a.headeritem.hvr-overline-from-center.headeritem(href="/about") About
         br
         h1.title CoffeePal Summary
-        p Hello, #{user}! These are the currently active coupons for CoffeePal:
+        if created
+            p(style="color: #29e65c;") ✔ Created Employee
+        p(style="color: #ffff") Hello, #{user}! These are the currently active coupons for CoffeePal:
         ul
             - var couponsArr = []
             a.hvr-overline-from-center(href="/summary" style="padding-right: 10px; padding-top:6px; text-decoration: none; color: #33ccff;") All
@@ -28,6 +37,27 @@ html
             for coupon in coupons
                 if store !== undefined && store !== ""
                     if store === String(coupon.valid_store)
-                        li= coupon.coupon_code
+                        li(style="color: #ffff")= coupon.coupon_code
                 else
-                    li= coupon.coupon_code
+                    li(style="color: #ffff")= coupon.coupon_code
+            br
+            br
+            form(action="/staff" method="POST")
+                select(id="employee-list" name="employee_id")
+                | &nbsp;
+                input(type="text" name="employee_first_name" placeholder="First Name")
+                | &nbsp;
+                input(type="text" name="employee_last_name" placeholder="Last Name")
+                | &nbsp;
+                input(type="text" name="employee_nin" placeholder="National Insurance Number")
+                | &nbsp;
+                select(id="store-list" name="employee_store_id")
+                br
+                | Employee Address: &nbsp;
+                input(type="text" name="employee_street" placeholder="Street")
+                | &nbsp;
+                input(type="text" name="employee_city" placeholder="City")
+                | &nbsp;
+                input(type="text" name="employee_postcode" placeholder="Postcode")
+                | &nbsp; &nbsp;
+                input(type="submit" value="Add Staff")

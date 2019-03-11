@@ -15,6 +15,7 @@ var orders    = require('./api/orders');
 var products  = require('./api/products');
 var login     = require('./api/login');
 var signup    = require('./api/signup');
+var staff     = require('./api/summary/staff');
 
 app.use(products);
 app.use(coupons);
@@ -22,6 +23,7 @@ app.use(summary);
 app.use(orders);
 app.use(login);
 app.use(signup);
+app.use(staff);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

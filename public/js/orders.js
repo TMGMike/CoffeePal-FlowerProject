@@ -1,26 +1,37 @@
+var productCount = 1;
+
 var ordersOnLoad = function() {
 
     getProductsAsync(function (productData) {
         var data = JSON.parse(productData);
 
-        var dropdown = document.getElementById("select-orders");
+        var productDropdown = document.getElementById("select-products");
+
 
         data.products.sort(compare);
         for(var i = 0; i < data.products.length; i++) {
 
             console.log(`<option value=${data.products[i].id}>${data.products[i].name}</option>`);
-            dropdown.innerHTML += `<option value=${data.products[i].id}>${data.products[i].name}</option>`
-
+            productDropdown.innerHTML += `<option value=${data.products[i].id}>${data.products[i].name}</option>`;
         }
 
-        console.log("setting names");
+        console.log(document.getElementById("add-order-form"));
         setProductName();
     });
     getOrdersAsync(function(ordersData) {
         var data = JSON.parse(ordersData);
+        var orderDropdown = document.getElementById("select-order");
+
+        for (var i = 0; i < data.orders.length; i++) {
+            orderDropdown.innerHTML += `<option value=${data.orders[i]["order_id"]}>${data.orders[i]["order_id"]}</option>`;
+        }
     });
 
 };
+
+function addProduct() {
+
+}
 
 function compare(a,b) {
     if (a.name < b.name)
@@ -36,7 +47,7 @@ function getOrdersAsync(callback) {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             callback(xmlHttp.responseText);
     };
-    xmlHttp.open("GET", "http://localhost:3000/api/orders?status=all", true); // true for asynchronous
+    xmlHttp.open("GET", "http://coffeepal.themadgamers.co.uk/api/orders?status=all", true); // true for asynchronous
 
     xmlHttp.send(null);
 }
@@ -47,7 +58,7 @@ function getProductsAsync(callback) {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             callback(xmlHttp.responseText);
     };
-    xmlHttp.open("GET", "http://localhost:3000/api/products", true); // true for asynchronous
+    xmlHttp.open("GET", "http://coffeepal.themadgamers.co.uk/api/products", true); // true for asynchronous
 
     xmlHttp.send(null);
 }
@@ -69,7 +80,7 @@ function setProductName() {
                 element.id += "-done";
 
                 // Restart the loop for any other products with that product ID.
-                i = 0;
+                i = -1;
             }
         }
 

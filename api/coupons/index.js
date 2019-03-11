@@ -41,7 +41,35 @@ var coupons = {
                 ],
                 "minimum_spend": 25
             }
-        }
+        },
+        {
+            "expires_in": 202800,
+            "coupon_code": "XGF3",
+            "valid_store": 8127,
+            "data": {
+                "coupon_type": "free_product",
+                "coupon_value": "p0001",
+                "required_products": [
+                    "p0003",
+                    "p0006"
+                ],
+                "minimum_spend": 0
+            }
+        },
+        {
+            "expires_in": 202800,
+            "coupon_code": "UYW7",
+            "valid_store": 7830,
+            "data": {
+                "coupon_type": "free_product",
+                "coupon_value": "p0001",
+                "required_products": [
+                    "p0003",
+                    "p0006"
+                ],
+                "minimum_spend": 0
+            }
+        },
     ]
 };
 /**

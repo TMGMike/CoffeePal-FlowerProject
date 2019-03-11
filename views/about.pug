@@ -2,6 +2,7 @@
 html
     head
         title About Us - CoffeePal
+        link( href="/css/login.css" type="text/css" rel="stylesheet")
         link(rel="stylesheet" href="/css/header.css" type="text/css")
         link(rel="stylesheet" href="/css/about.css" type="text/css")
         link(rel="stylesheet" href="/css/icon-pop.css" type="text/css")
@@ -10,7 +11,10 @@ html
         .header
             a.headeritem.hvr-overline-from-center(href="/") Home
             a.headeritem.hvr-overline-from-center.headeritem(href="/products") Products
+            a.headeritem.hvr-overline-from-center.headeritem(href="/orders") Orders
             a.headeritem(href=url) <img class="hvr-pop" src="/img/CoffeePal.png" width="34px" height="34px">
+            a.headeritem.hvr-overline-from-center.headeritem(href="/login") Login
+            a.headeritem.hvr-overline-from-center.headeritem(href="/signup") Register
             a.headeritem.hvr-overline-from-center.headeritem(href="/summary") Summary
             a.headeritem.hvr-overline-from-center.headeritem(href="/about") About
         br
